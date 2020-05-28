@@ -1,0 +1,154 @@
+@import "./date.scss";
+
+.weather__today {
+  width: 65%;
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.country__name,
+.current__date {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 7px;
+  border: 1px solid rgba(180, 184, 187, 0.7);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-weight: 900;
+}
+.country__name {
+  justify-content: space-between;
+}
+.current__date {
+  margin-top: 10px;
+}
+.discription {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border: 1px solid rgba(180, 184, 187, 0.7);
+  border-radius: 7px;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.current__temperature {
+  width: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+.weather__description {
+  width: 40%;
+  min-width: 295px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  span {
+    width: 100%;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-weight: 900;
+  }
+}
+.speak {
+  width: 30px;
+  height: 100%;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+}
+.speak:hover{
+  cursor: pointer;
+  background-color: rgba(180, 184, 187, 0.7);
+}
+.broken_clouds, .overcast_clouds, .moderate_rain, .clear_sky{
+  display: flex;
+  width: 100px !important;
+  height: 100px !important;
+}
+.broken_clouds{
+  background-image: url(./img/bad-weather.svg);
+}
+.overcast_clouds{
+  background-image: url(./img/cloud.svg);
+}
+.moderate_rain{
+  background-image: url(./img/rain.svg);
+}
+.clear_sky{
+  background-image: url(./img/sun.svg);
+}
+
+
+@media screen and (max-width: 1050px) {
+  .weather__today {
+    width: 62%;
+  }
+  .current__temperature {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 950px) {
+  .weather__today {
+    width: 55%;
+  }
+  .current__temperature {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 807px) {
+  .weather__today {
+    width: 100%;
+  }
+  .current__temperature {
+    width: 28%;
+  }
+}
+@media screen and (max-width: 460px) {
+  .weather__description span {
+    text-align: center;
+  }
+  .current__temperature {
+    width: 100%;
+  }
+  .weather__description {
+    width: 100%;
+  }
+}
+
+
+.broken_clouds, .overcast_clouds, .moderate_rain, .clear_sky{
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-origin: 50% 50%;
+  animation-duration: 12s;
+  animation-direction: normal;
+}
+
+
+.broken_clouds, .overcast_clouds, .moderate_rain, .clear_sky{
+  animation-name: scale;
+  animation-direction: alternate;
+  animation-duration: 3s;
+}
+
+
+@keyframes scale {
+  0% {
+    transform: scale(1, 1);
+  }
+
+  100% {
+    transform: scale(0.5, 0.5);
+  }
+}
