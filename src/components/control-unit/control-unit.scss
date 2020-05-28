@@ -1,0 +1,214 @@
+.control__unit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.buttons__control {
+  display: flex;
+}
+.button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(180, 184, 187, 0.7);
+  border-radius: 7px;
+  background: none;
+  transition: all 0.5s;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.button_active {
+  background-color: rgb(36, 211, 188);
+}
+.button__background {
+  font-size: 15px;
+  span {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+svg:not(:root).svg-inline--fa {
+  color: #ffffff;
+}
+.button:hover {
+  cursor: pointer;
+  background-color: rgba(180, 184, 187, 0.7);
+}
+.fa-sync-alt {
+  color: rgba(180, 184, 187, 0.7);
+}
+.buttons__language {
+  margin-left: 10px;
+  button:nth-child(1) {
+    border-right: none;
+    border-radius: 7px 0 0 7px;
+  }
+  button:nth-child(2) {
+    border-right: none;
+    border-radius: 0 0 0 0;
+  }
+  button:nth-child(3) {
+    border-radius: 0 7px 7px 0;
+  }
+}
+.buttons__grade {
+  margin-left: 10px;
+  .button:nth-child(1) {
+    border-right: none;
+    border-radius: 7px 0 0 7px;
+  }
+  .button:nth-child(2) {
+    border-radius: 0 7px 7px 0;
+  }
+}
+.search {
+  position: relative;
+  display: flex;
+  div {
+    width: 40px;
+    height: 46px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 80px;
+    transition: all 0.5s;
+    overflow: hidden;
+    transition: color 0.3s, background 0.5s;
+  }
+  div:hover {
+    cursor: pointer;
+    background-color: rgba(180, 184, 187, 0.7);
+  }
+  .voice_active {
+    animation: stripes 0.75s infinite linear;
+    background: linear-gradient(
+      45deg,
+      rgba(30, 255, 188, 0.7) 25%,
+      rgba(255, 255, 255, 0.5) 25%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(30, 255, 188, 0.7) 50%,
+      rgba(30, 255, 188, 0.7) 75%,
+      rgba(255, 255, 255, 0.5) 75%,
+      rgba(255, 255, 255, 0.5)
+    );
+    background-size: 10px 10px;
+  }
+}
+@keyframes stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 0;
+  }
+}
+.search-input {
+  width: 300px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border: 1px solid rgba(180, 184, 187, 0.7);
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 7px 0 0 7px;
+  padding-left: 10px;
+  border-right: none;
+  color: #ffffff;
+}
+
+.search-btn {
+  border: 1px solid rgba(180, 184, 187, 0.7);
+  background-color: rgba(180, 184, 187, 0.7);
+  border-radius: 0 7px 7px 0;
+  width: 80px;
+  transition: all 0.5s;
+  color: #ffffff;
+  font-weight: 900;
+}
+.search-btn:hover {
+  cursor: pointer;
+  background-color: rgba(180, 184, 187, 1);
+}
+
+.search-input::-webkit-input-placeholder {
+  color: #ffffff;
+}
+
+.window__errors {
+  position: absolute;
+  width: 300px;
+  height: 140px;
+  background-color: ghostwhite;
+  opacity: 0;
+  left: -100%;
+  top: 0;
+  z-index: 3;
+  background-color: rgb(168, 91, 94);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #5c1616;
+  border-radius: 10px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: all 0.1s;
+  span {
+    width: 15px;
+    border-radius: 100%;
+    height: 15px;
+    position: absolute;
+    right: 17px;
+    top: 5px;
+    opacity: 0.5;
+  }
+}
+.window__errors_active {
+  opacity: 1;
+  left: calc(50% - 100px);
+  top: calc(50vh - 40px);
+}
+.window__errors span:hover {
+  cursor: pointer;
+  transition: all 0.1s;
+  opacity: 1;
+  .fa-times-circle {
+    color: rgba(64, 78, 70, 0.7) !important;
+  }
+}
+.animatiom {
+  animation-name: spin;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media screen and(max-width: 900px) {
+  .control__unit {
+    flex-direction: column;
+  }
+  .search {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .search-input {
+      width: 100%;
+    }
+    div {
+      right: 80px;
+    }
+  }
+}
