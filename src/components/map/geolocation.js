@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 
+// eslint-disable-next-line import/prefer-default-export
 export const Geolocation = (props) => {
-
   const { longitude, latitude } = props;
+  // eslint-disable-next-line new-cap
   const Map = ReactMapboxGl({
     accessToken:
-      'pk.eyJ1Ijoia2FycHVrdml0YWxpIiwiYSI6ImNrYWN2cmtzaDBxaXoyem84aHZpYmVzdTIifQ.3UGLHw-Xj15Q1iEjhUVlWQ'
+      'pk.eyJ1Ijoia2FycHVrdml0YWxpIiwiYSI6ImNrYWN2cmtzaDBxaXoyem84aHZpYmVzdTIifQ.3UGLHw-Xj15Q1iEjhUVlWQ',
   });
   return (
     <>
@@ -20,5 +21,5 @@ export const Geolocation = (props) => {
         </Layer>
       </Map>
     </>
-  )
-}
+  );
+};
