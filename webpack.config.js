@@ -1,9 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-
 module.exports = (env = {}) => {
-  const { mode = 'development' } = env; //по умолчанию чтобы равно development
+  const { mode = 'development' } = env;
 
   const isProd = env.mode === 'production';
   const isDev = env.mode === 'development';
@@ -11,9 +10,8 @@ module.exports = (env = {}) => {
   return {
     mode: isProd ? 'production' : isDev && 'development',
 
-    // название файла
     output: {
-      filename: 'bundle.js'
+      filename: 'bundle.js',
     },
 
     module: {
@@ -21,7 +19,7 @@ module.exports = (env = {}) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel-loader'
+          loader: 'babel-loader',
         },
         // images
         {
@@ -31,10 +29,10 @@ module.exports = (env = {}) => {
               loader: 'file-loader',
               options: {
                 outputPath: 'images',
-                name: '[name]-[sha1:hash:7].[ext]'
-              }
-            }
-          ]
+                name: '[name]-[sha1:hash:7].[ext]',
+              },
+            },
+          ],
         },
         // fonts
         {
@@ -44,47 +42,47 @@ module.exports = (env = {}) => {
               loader: 'file-loader',
               options: {
                 outputPath: 'fonts',
-                name: '[name].[ext]'
-              }
-            }
-          ]
+                name: '[name].[ext]',
+              },
+            },
+          ],
         },
         {
           test: /\.(css)/,
           use: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-          ]
+          ],
         },
         {
           test: /\.(s[ca]ss)/,
           use: [
-            MiniCssExtractPlugin.loader,// добавление css на страницу
+            MiniCssExtractPlugin.loader,
             'css-loader',
-            'sass-loader', // лоадкры работают с конца
+            'sass-loader',
           ],
         },
         {
           test: /\.(ttf|eot|svg|woff2|woff)$/,
           loader: 'file-loader',
-          options:{
-            outputPath: 'fonts'
-          }
-        }
-      ]
+          options: {
+            outputPath: 'fonts',
+          },
+        },
+      ],
     },
 
     plugins: [
       new HtmlWebpackPlugin({
-        template: 'public/index.html'
+        template: 'public/index.html',
       }),
       new MiniCssExtractPlugin({
-        filename: 'main.css'
-      })
+        filename: 'main.css',
+      }),
     ],
     devServer: {
       open: true,
     },
     devtool: 'source-map',
-  }
+  };
 };
