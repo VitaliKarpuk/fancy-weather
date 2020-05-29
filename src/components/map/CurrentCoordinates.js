@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import { Geolocation } from './geolocation';
 
 const CurrentCoordinates = (props) => {
@@ -10,16 +10,16 @@ const CurrentCoordinates = (props) => {
       degree.splice(0, degree.indexOf('.'), '0');
       return +degree.join('') * 60;
     }
-  }
+  };
   const conversionToSec = (value) => {
     if (value) {
       const degree = value.toString().split('');
       degree.splice(0, degree.indexOf('.'), '0');
-      return +degree.join('') * 60
+      return +degree.join('') * 60;
     }
-  }
-  const degreeLatitude = `${Math.trunc(latitude)}° ${Math.trunc(conversionToMin(latitude))}" ${Math.trunc(conversionToSec(conversionToMin(latitude)))}'`
-  const degreeLongitude = `${Math.trunc(longitude)}° ${Math.trunc(conversionToMin(longitude))}" ${Math.trunc(conversionToSec(conversionToMin(longitude)))}'`
+  };
+  const degreeLatitude = `${Math.trunc(latitude)}° ${Math.trunc(conversionToMin(latitude))}" ${Math.trunc(conversionToSec(conversionToMin(latitude)))}'`;
+  const degreeLongitude = `${Math.trunc(longitude)}° ${Math.trunc(conversionToMin(longitude))}" ${Math.trunc(conversionToSec(conversionToMin(longitude)))}'`;
 
   return (
     <div className='coordinates'>
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
   return {
     longitude,
     latitude,
-    language
-  }
-}
+    language,
+  };
+};
 export default connect(mapStateToProps)(CurrentCoordinates);

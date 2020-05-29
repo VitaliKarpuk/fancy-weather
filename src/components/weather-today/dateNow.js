@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 
-const DateNow = ({ tz, city, timeZone, language }) => {
-  const [currentDate, setCurrentDate] = useState()
+const DateNow = ({
+  tz, city, timeZone, language,
+}) => {
+  const [currentDate, setCurrentDate] = useState();
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if ((timeZone || tz) && city && language) {
       const id = setInterval(() => {
@@ -16,26 +19,26 @@ const DateNow = ({ tz, city, timeZone, language }) => {
           day: 'numeric',
           hour: '2-digit',
           minute: '2-digit',
-          second: '2-digit'
+          second: '2-digit',
         });
         const timeNowGoodFormat = formatter.format(timeNow);
         setCurrentDate(timeNowGoodFormat);
-      }, 1000)
+      }, 1000);
       return () => clearInterval(id);
     }
-  }, [tz, city, timeZone, language])
+  }, [tz, city, timeZone, language]);
 
   return (
     <div>{currentDate}</div>
-  )
-}
-const mapStateToProps = ({ tz, city, timeZone, language }) => {
+  );
+};
+const mapStateToProps = ({
+  tz, city, timeZone, language,
+}) => ({
+  city,
+  tz,
+  timeZone,
+  language,
+});
 
-  return {
-    city,
-    tz,
-    timeZone,
-    language
-  }
-}
-export default connect(mapStateToProps)(DateNow)
+export default connect(mapStateToProps)(DateNow);
