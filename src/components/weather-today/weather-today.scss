@@ -66,28 +66,30 @@
   text-align: center;
   border-radius: 5px;
 }
-.speak:hover{
+.speak:hover {
   cursor: pointer;
   background-color: rgba(180, 184, 187, 0.7);
 }
-.broken_clouds, .overcast_clouds, .moderate_rain, .clear_sky{
+.broken_clouds,
+.overcast_clouds,
+.moderate_rain,
+.clear_sky {
   display: flex;
   width: 100px !important;
   height: 100px !important;
 }
-.broken_clouds{
+.broken_clouds {
   background-image: url(./img/bad-weather.svg);
 }
-.overcast_clouds{
+.overcast_clouds {
   background-image: url(./img/cloud.svg);
 }
-.moderate_rain{
+.moderate_rain {
   background-image: url(./img/rain.svg);
 }
-.clear_sky{
+.clear_sky {
   background-image: url(./img/sun.svg);
 }
-
 
 @media screen and (max-width: 1050px) {
   .weather__today {
@@ -96,16 +98,22 @@
   .current__temperature {
     width: 40%;
   }
+  
 }
 @media screen and (max-width: 950px) {
   .weather__today {
     width: 55%;
   }
   .current__temperature {
-    width: 20%;
+    width: 30%;
+    font-size: 10rem;
   }
 }
-
+@media screen and (max-width: 890px) {
+  .discription {
+    justify-content: center;
+  }
+}
 @media screen and (max-width: 807px) {
   .weather__today {
     width: 100%;
@@ -124,10 +132,18 @@
   .weather__description {
     width: 100%;
   }
+  .weather-three-day {
+    width: 93%;
+}
+.weather-three-day div span:nth-child(2) {
+  font-size: 2rem !important;
+}
 }
 
-
-.broken_clouds, .overcast_clouds, .moderate_rain, .clear_sky{
+.broken_clouds,
+.overcast_clouds,
+.moderate_rain,
+.clear_sky {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   transform-origin: 50% 50%;
@@ -135,13 +151,14 @@
   animation-direction: normal;
 }
 
-
-.broken_clouds, .overcast_clouds, .moderate_rain, .clear_sky{
+.broken_clouds,
+.overcast_clouds,
+.moderate_rain,
+.clear_sky {
   animation-name: scale;
   animation-direction: alternate;
   animation-duration: 3s;
 }
-
 
 @keyframes scale {
   0% {

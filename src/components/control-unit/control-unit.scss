@@ -170,7 +170,7 @@ svg:not(:root).svg-inline--fa {
 }
 .window__errors_active {
   opacity: 1;
-  left: calc(50% - 100px);
+  left: calc(50vw - 150px);
   top: calc(50vh - 40px);
 }
 .window__errors span:hover {

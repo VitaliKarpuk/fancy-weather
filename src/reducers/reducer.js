@@ -34,6 +34,7 @@ const initilState = {
   classNameWeatherCode: null,
   weatherPassphrase: null,
   volumeSpeak: 0.5,
+  dayWeek: null,
 };
 
 const reducer = (state = initilState, action) => {
@@ -44,6 +45,7 @@ const reducer = (state = initilState, action) => {
         latitude: action.payload.latitude,
         longitude: action.payload.longitude,
         tz: action.payload.tz,
+        dayWeek: action.payload.dayWeek,
       };
 
     case GET_CURRENT_TEMPRATURE:

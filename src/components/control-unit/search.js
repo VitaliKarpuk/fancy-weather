@@ -8,7 +8,7 @@ import { changeVolumeSpeak } from '../../action/changeVolumeSpeak';
 
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 const Search = ({
-  getLocation, language, tz, getWeatherPassphrase, changeVolumeSpeak,
+  getLocation, language, getWeatherPassphrase, changeVolumeSpeak,
 }) => {
   const [value, setValue] = useState('');
   const [valueTranslate, setValueTranslate] = useState('');
@@ -35,10 +35,11 @@ const Search = ({
             setError('Калі ласка, увядзіце сапраўдны запыт.');
           }
         } else {
+          const dayWeek = new Date(1590796800000).getDay();
           const longitude = data.location.lon;
           const latitude = data.location.lat;
           const tz = data.location.tz_id;
-          getLocation(longitude, latitude, tz);
+          getLocation(longitude, latitude, tz, dayWeek);
         }
       });
   };
@@ -75,7 +76,7 @@ const Search = ({
   };
   useEffect(() => {
     if (value !== '' && value.length > 2 && value !== 'weather forecast' && value !== 'прогноз погоды' && value !== "прагноз надвор'я" && value !== 'louder'
-    && value !== 'quieter' && value !== 'тише' && value !== 'цішэй' && value !== 'громче' && value !== 'гучней') {
+    && value !== 'quieter' && value !== 'тише' && value !== 'цішэй' && value !== 'громче' && value !== 'гучней' && valueTranslate) {
       fetch(`https://api.weatherapi.com/v1/forecast.json?key=363474e96d194f10ab9212718201105&q=${valueTranslate}&days=3$lang=${language}`)
         .then((response) => response.json())
         .then((data) => {
