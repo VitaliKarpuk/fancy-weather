@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env.mode=development",
+    "test": "jest",
     "build:prod": "webpack --env.mode=production",
     "dev": "webpack --env.mode=development",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ignore-path ../.gitignore ."
+    "lint": "eslint --ignore-path ./.gitignore ."
   },
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
