@@ -9,6 +9,7 @@ import {
   CHANGE_CLASSNAME_WEATHERCODE,
   WEATHER_PASSPHRASE,
   CHANGE_VOLUME_SPEAK,
+  GET_ICON_WETHER,
 } from '../constants/constants';
 
 const initilState = {
@@ -35,6 +36,11 @@ const initilState = {
   weatherPassphrase: null,
   volumeSpeak: 0.5,
   dayWeek: null,
+  icon: {
+    today: null,
+    tomorrow: null,
+    thirdDay: null,
+  },
 };
 
 const reducer = (state = initilState, action) => {
@@ -107,6 +113,15 @@ const reducer = (state = initilState, action) => {
       return {
         ...state,
         volumeSpeak: action.payload,
+      };
+    case GET_ICON_WETHER:
+      return {
+        ...state,
+        icon: {
+          today: action.payload.today,
+          tomorrow: action.payload.tomorrow,
+          thirdDay: action.payload.thirdDay,
+        },
       };
     default:
       return state;

@@ -23,10 +23,10 @@ const Search = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     setError('');
-    fetch(`https://api.weatherapi.com/v1/forecast.json?key=363474e96d194f10ab9212718201105&q=${value}&days=3&lang=${language}`)
+    fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${KEY_TRANSLATE}&lang=en&text=${value}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.error) {
+        if (data.code > 400) {
           if (language === 'en') {
             setError('Please enter a valid request.');
           } else if (language === 'ru') {
@@ -35,11 +35,7 @@ const Search = ({
             setError('Калі ласка, увядзіце сапраўдны запыт.');
           }
         } else {
-          const dayWeek = new Date(1590796800000).getDay();
-          const longitude = data.location.lon;
-          const latitude = data.location.lat;
-          const tz = data.location.tz_id;
-          getLocation(longitude, latitude, tz, dayWeek);
+          setValueTranslate(data.text[0]);
         }
       });
   };
@@ -49,19 +45,18 @@ const Search = ({
   };
 
   useEffect(() => {
-    recognition.lang = `${language}`;
-    recognition.continuous = true;
     if (voice === true) {
+      recognition.lang = `${language}`;
+      recognition.continuous = true;
       recognition.start();
       recognition.onresult = (e) => {
-        fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${KEY_TRANSLATE}&lang=en&text=${e.results[0][0].transcript}}`)
+        fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?key=${KEY_TRANSLATE}&lang=en&text=${e.results[0][0].transcript}`)
           .then((response) => response.json())
           .then((data) => {
-            setValueTranslate(data.text[0].slice(0, data.text[0].length - 1));
+            setValueTranslate(data.text[0]);
             setValue(e.results[0][0].transcript);
             getWeatherPassphrase(e.results[0][0].transcript);
             changeVolumeSpeak(getVolumeSpeak(e.results[0][0].transcript));
-            setVoice(false);
             recognition.stop();
           });
       };
@@ -76,7 +71,7 @@ const Search = ({
   };
   useEffect(() => {
     if (value !== '' && value.length > 2 && value !== 'weather forecast' && value !== 'прогноз погоды' && value !== "прагноз надвор'я" && value !== 'louder'
-    && value !== 'quieter' && value !== 'тише' && value !== 'цішэй' && value !== 'громче' && value !== 'гучней' && valueTranslate) {
+      && value !== 'quieter' && value !== 'тише' && value !== 'цішэй' && value !== 'громче' && value !== 'гучней' && valueTranslate) {
       fetch(`https://api.weatherapi.com/v1/forecast.json?key=363474e96d194f10ab9212718201105&q=${valueTranslate}&days=3$lang=${language}`)
         .then((response) => response.json())
         .then((data) => {
@@ -95,7 +90,7 @@ const Search = ({
           }
         });
     }
-  }, [value]);
+  }, [value, valueTranslate]);
 
   return (
     <>

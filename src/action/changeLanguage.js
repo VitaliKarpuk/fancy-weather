@@ -1,8 +1,7 @@
-import {CHANGE_LANGUAGE} from '../constants/constants';
+import { CHANGE_LANGUAGE } from '../constants/constants';
 
-export const changeLanguage = (language) => {
-  return{
-    type: CHANGE_LANGUAGE,
-    payload: language
-  }
-}
+// eslint-disable-next-line import/prefer-default-export
+export const changeLanguage = (language) => ({
+  type: CHANGE_LANGUAGE,
+  payload: language,
+});

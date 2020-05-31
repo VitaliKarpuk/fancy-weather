@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { changeFormatGrade } from '../../action/changeFormatGrade';
 import { convertDegrees } from '../../action/convertDegrees';
-import { gradeCalculation } from '../../utils';
+import { convertFahrenheit, convertCelsius } from '../../utils';
 
 export const ButtonGrade = (props) => {
   const {
     changeFormatGrade, formatTemperature, temperature, feelsLike, convertDegrees, windSpeed,
   } = props;
-
+  const [changeCurrentCrade, setChangeCurrentGrade] = useState(false);
   const handleButtonFahrenheit = () => {
     localStorage.setItem('formatGrade', JSON.stringify('F'));
     const formatGrade = JSON.parse(localStorage.getItem('formatGrade'));
@@ -19,21 +19,24 @@ export const ButtonGrade = (props) => {
     localStorage.setItem('formatGrade', JSON.stringify('C'));
     const formatGrade = JSON.parse(localStorage.getItem('formatGrade'));
     changeFormatGrade(formatGrade);
-    const temperatureC = gradeCalculation(temperature.curentTemperature, formatGrade);
-    const temperatureSecondDayC = gradeCalculation(temperature.temperatureSecondDay, formatGrade);
-    const feelLikesC = gradeCalculation(feelsLike, formatGrade);
-    const temperatureThirdDayC = gradeCalculation(temperature.temperatureThirdDay, formatGrade);
-    convertDegrees(temperatureC, feelLikesC, temperatureSecondDayC, temperatureThirdDayC);
+    setChangeCurrentGrade(true);
   };
 
   useEffect(() => {
     const formatGrade = JSON.parse(localStorage.getItem('formatGrade'));
     if (formatGrade === 'F' && temperature) {
-      const temperatureF = gradeCalculation(temperature.curentTemperature, formatGrade);
-      const temperatureSecondDayF = gradeCalculation(temperature.temperatureSecondDay, formatGrade);
-      const feelLikesF = gradeCalculation(feelsLike, formatGrade);
-      const temperatureThirdDayF = gradeCalculation(temperature.temperatureThirdDay, formatGrade);
+      const temperatureF = convertFahrenheit(temperature.curentTemperature);
+      const temperatureSecondDayF = convertFahrenheit(temperature.temperatureSecondDay);
+      const feelLikesF = convertFahrenheit(feelsLike);
+      const temperatureThirdDayF = convertFahrenheit(temperature.temperatureThirdDay);
       convertDegrees(temperatureF, feelLikesF, temperatureSecondDayF, temperatureThirdDayF);
+    }
+    if (formatGrade === 'C' && temperature && changeCurrentCrade) {
+      const temperatureC = convertCelsius(temperature.curentTemperature);
+      const temperatureSecondDayC = convertCelsius(temperature.temperatureSecondDay);
+      const feelLikesC = convertCelsius(feelsLike);
+      const temperatureThirdDayC = convertCelsius(temperature.temperatureThirdDay);
+      convertDegrees(temperatureC, feelLikesC, temperatureSecondDayC, temperatureThirdDayC);
     }
   }, [formatTemperature, windSpeed]);
 
