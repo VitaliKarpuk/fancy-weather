@@ -7,7 +7,8 @@ import { getCountry } from '../../action/getCountry';
 import { KEY_API_LOCATION, KEY_API_WEATHER } from '../../constants/constants';
 import DateNow from './dateNow';
 import { changeClassNameWeatherCode } from '../../action/changeClassNameWeatherCode';
-import { getVolumeSpeak } from '../../utils';
+import { getIconWether } from '../../action/getIconWeather';
+import { Loading } from '../../loading';
 
 const WeatherToday = (props) => {
   const {
@@ -24,12 +25,13 @@ const WeatherToday = (props) => {
     country,
     city,
     language,
-    classNameWeatherCode,
-    changeClassNameWeatherCode,
     weatherPassphrase,
     volumeSpeak,
+    getIconWether,
+    icon,
   } = props;
   const [onSpeak, setOnSpeak] = useState(false);
+  const [loadingImg, setLoadingImg] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -46,6 +48,9 @@ const WeatherToday = (props) => {
       fetch(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&country=RU&days=3&units=M&lang=${language}&key=${KEY_API_WEATHER}`)
         .then((response) => response.json())
         .then((information) => {
+          const iconWeatherToday = information.data[0].weather.icon;
+          const iconWeatherTomorrow = information.data[1].weather.icon;
+          const iconWeatherThirdDay = information.data[1].weather.icon;
           const feelsLike = (information.data[0].app_max_temp + +information.data[0].app_min_temp) / 2;
           const humidity = Math.ceil(information.data[0].rh);
           const windSpeed = information.data[0].wind_spd.toFixed(2);
@@ -53,6 +58,7 @@ const WeatherToday = (props) => {
           const temperatureToday = information.data[0].temp;
           const temperatureSecondDay = information.data[1].temp;
           const temperatureThirdDay = information.data[2].temp;
+          getIconWether(iconWeatherToday, iconWeatherTomorrow, iconWeatherThirdDay);
           getCurrentTemperature(feelsLike, humidity, windSpeed, weatherCode, temperatureToday, temperatureSecondDay, temperatureThirdDay);
         });
     }
@@ -110,20 +116,6 @@ const WeatherToday = (props) => {
     }
   }, [weatherPassphrase, onSpeak]);
 
-  useEffect(() => {
-    if (weatherCode) {
-      const weatherClass = weatherCode.toLowerCase();
-      if ((weatherClass === 'broken clouds') || (weatherClass === 'облачно с прояснениями') || (weatherClass === 'разарваныя аблокі')) {
-        changeClassNameWeatherCode('broken_clouds');
-      } else if (weatherClass === 'overcast clouds' || weatherClass === 'облачно' || weatherClass === 'пахмурныя воблака') {
-        changeClassNameWeatherCode('overcast_clouds');
-      } else if (weatherClass === 'moderate rain' || weatherClass === 'дождь' || weatherClass === 'ўмераны дождж') {
-        changeClassNameWeatherCode('moderate_rain');
-      } else if (weatherClass === 'clear sky' || weatherClass === 'ясно' || weatherClass === 'яснага неба') {
-        changeClassNameWeatherCode('clear_sky');
-      }
-    }
-  }, [weatherCode, language]);
 
   return (
     <div className="weather__today">
@@ -142,8 +134,14 @@ const WeatherToday = (props) => {
           <span>{weatherCode}</span>
           <span>{language === 'en' ? 'FEEL LIKES' : (language === 'ru') ? 'Ощущается' : 'Адчуваецца'}: {Math.ceil(feelsLike)}°</span>
           <span>{language === 'en' ? 'HUMIDITY' : (language === 'ru') ? 'Влажность' : 'Вільготнасць'}: {humidity} %</span>
-          <span>{language === 'en' ? 'WIND SPEED' : (language === 'ru') ? 'Скорость ветра' : 'Хуткасць ветру'}: {windSpeed} m/s</span>
-          <span className={classNameWeatherCode}></span>
+          <span>{language === 'en' ? 'WIND SPEED' : (language === 'ru') ? 'Скорость ветра' : 'Хуткасць ветру'}: {windSpeed}
+            {language === 'en' ? ' m/s' : ' м/с'}
+          </span>
+          <span className={loadingImg ? 'broken_clouds' : 'broken_clouds_hidden'}>
+            <img src={`https://www.weatherbit.io/static/img/icons/${icon.today}.png`} onLoad={() => setLoadingImg(true)} />
+          </span>
+          <span className={!loadingImg ? 'loading' : 'loading_none'}><Loading /></span>
+
         </div>
       </div>
       <WeatherThreeDay weather={temperature} />
@@ -155,7 +153,7 @@ const mapStateToProps = (state) => {
   const {
     longitude, latitude, feelsLike, humidity, weatherCode,
     windSpeed, temperature, country, city, timeZone, language,
-    classNameWeatherCode, weatherPassphrase, volumeSpeak,
+    classNameWeatherCode, weatherPassphrase, volumeSpeak, icon,
   } = state;
   return {
     longitude,
@@ -172,6 +170,7 @@ const mapStateToProps = (state) => {
     classNameWeatherCode,
     weatherPassphrase,
     volumeSpeak,
+    icon,
   };
 };
 
@@ -180,6 +179,7 @@ const mapDispatchToProps = {
   getCurrentTemperature,
   getCountry,
   changeClassNameWeatherCode,
+  getIconWether,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeatherToday);

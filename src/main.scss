@@ -4,67 +4,9 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import './components//weather-today/weather-today.scss';
 @import './components/weather-three-day/weather-three-day.scss';
 @import './components/map/map.scss';
-
-
-
-
-// n is number of stars required
-// @function multiple-box-shadow ($n){
-//     $value: '#{random(2000)}px #{random(2000)}px #FFF'
-//   @for $i from 2 through $n
-//     $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF'
-
-//   @return unquote($value)
-// }
-
-
-$shadows-small:  multiple-box-shadow(700);
-$shadows-medium: multiple-box-shadow(200);
-$shadows-big:    multiple-box-shadow(100);
-
-// body{
-//     height: 100%;
-//   background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-//   overflow: hidden;
-// }
-
+@import './components/ticker/ticker.scss';
     
-// body{
-//   width: 1px;
-//   height: 1px;
-//   background: transparent;
-//   box-shadow: $shadows-small;
-//   animation: animStar 50s linear infinite;
-    
-//   &:after{
-//     content: " ";
-//     position: absolute;
-//     top: 2000px;
-//     width: 1px;
-//     height: 1px;
-//     background: transparent;
-//     box-shadow: $shadows-small;
-//   }
-
-// }
-
-    
-    
-// @keyframes animStar{
-//     from{
-//         transform: translateY(0px);
-//     }  
-//   to{
-//       transform: translateY(-2000px);
-//   }	 
-// }
-
-    
-
-$body-color: rgb(133, 85, 85);
-
 body {
-    //background-color: $body-color;
     margin: 0;
     padding: 0;
     font-family: 'Montserrat', sans-serif;
@@ -101,4 +43,103 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+
+.loading{
+    position: relative;
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    top: -97px;
+    left: -93px;
+}
+.loading_day_one{
+    top: 0;
+}
+#floatingBarsG{
+	position:relative;
+	width:60px;
+	height:52px;
+	margin:auto;
+}
+
+.blockG{
+	position:absolute;
+	width:10px;
+	height:3px;
+	border-radius:8px 8px 0 0;
+	transform:scale(0.4);
+	animation-name:fadeG;
+	animation-duration:1.2s;
+	animation-iteration-count:infinite;
+	animation-direction:normal;
+}
+
+#rotateG_01{
+	left:0;
+	top:27px;
+	animation-delay:0.45s;
+	transform:rotate(-90deg);
+}
+
+#rotateG_02{
+	left:8px;
+	top:10px;
+	animation-delay:0.6s;
+	transform:rotate(-45deg);
+}
+
+#rotateG_03{
+	left:25px;
+	top:3px;
+	animation-delay:0.75s;
+	transform:rotate(0deg);
+}
+
+#rotateG_04{
+	right:8px;
+	top:10px;
+	animation-delay:0.9s;
+	transform:rotate(45deg);
+}
+
+#rotateG_05{
+	right:0;
+	top:27px;
+	animation-delay:1.05s;
+	transform:rotate(90deg);
+}
+
+#rotateG_06{
+	right:8px;
+	bottom:7px;
+	animation-delay:1.2s;
+	transform:rotate(135deg);
+}
+
+#rotateG_07{
+	bottom:0;
+	left:25px;
+	animation-delay:1.35s;
+	transform:rotate(180deg);
+}
+
+#rotateG_08{
+	left:8px;
+	bottom:7px;
+	animation-delay:1.5s;
+	transform:rotate(-135deg);
+}
+
+@keyframes fadeG{
+	0%{
+		background-color:rgb(0,0,0);
+	}
+
+	100%{
+		background-color:rgb(255,255,255);
+	}
 }

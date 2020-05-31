@@ -70,27 +70,16 @@
   cursor: pointer;
   background-color: rgba(180, 184, 187, 0.7);
 }
-.broken_clouds,
-.overcast_clouds,
-.moderate_rain,
-.clear_sky {
+.broken_clouds {
   display: flex;
   width: 100px !important;
   height: 100px !important;
 }
-.broken_clouds {
-  background-image: url(./img/bad-weather.svg);
+.broken_clouds_hidden {
+  display: none;
+  width: 100px !important;
+  height: 100px !important;
 }
-.overcast_clouds {
-  background-image: url(./img/cloud.svg);
-}
-.moderate_rain {
-  background-image: url(./img/rain.svg);
-}
-.clear_sky {
-  background-image: url(./img/sun.svg);
-}
-
 @media screen and (max-width: 1050px) {
   .weather__today {
     width: 62%;
@@ -98,7 +87,6 @@
   .current__temperature {
     width: 40%;
   }
-  
 }
 @media screen and (max-width: 950px) {
   .weather__today {
@@ -108,10 +96,20 @@
     width: 30%;
     font-size: 10rem;
   }
+  .weather-three-day div {
+    font-size: 19px !important;
+  }
+  .weather-three-day div span:nth-child(2) {
+    font-size: 2.5rem !important;
+  }
 }
 @media screen and (max-width: 890px) {
   .discription {
     justify-content: center;
+  }
+  .weather_icon {
+    width: 56px !important;
+    height: 63px !important;
   }
 }
 @media screen and (max-width: 807px) {
@@ -126,24 +124,42 @@
   .weather__description span {
     text-align: center;
   }
+  .weather__description {
+    align-items: center;
+  }
   .current__temperature {
     width: 100%;
+    height: 125px;
   }
   .weather__description {
     width: 100%;
   }
   .weather-three-day {
     width: 93%;
+    flex-direction: column;
+    align-items: center;
+    div {
+      font-size: 37px !important;
+      span:nth-child(2) {
+        font-size: 3.5rem !important;
+      }
+    }
+  }
+  .weather_icon {
+    width: 95px !important;
+    height: 89px !important;
+  }
 }
-.weather-three-day div span:nth-child(2) {
-  font-size: 2rem !important;
+.weather_icon {
+  width: 70px;
+  height: 70px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
-}
-
 .broken_clouds,
-.overcast_clouds,
-.moderate_rain,
-.clear_sky {
+.weather_icon {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   transform-origin: 50% 50%;
@@ -152,9 +168,7 @@
 }
 
 .broken_clouds,
-.overcast_clouds,
-.moderate_rain,
-.clear_sky {
+.weather_icon {
   animation-name: scale;
   animation-direction: alternate;
   animation-duration: 3s;
@@ -168,4 +182,7 @@
   100% {
     transform: scale(0.5, 0.5);
   }
+}
+.loading_none {
+  display: none;
 }
