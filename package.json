@@ -54,7 +54,7 @@
     "core-js": "^3.6.4",
     "image-webpack-loader": "^6.0.0",
     "mapbox-gl": "^1.10.1",
-    "moment": "^2.26.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.31",
     "react": "^16.13.1",
     "react-animations": "^1.0.0",
